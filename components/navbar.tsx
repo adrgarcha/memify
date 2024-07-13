@@ -66,7 +66,7 @@ function UserProfileDropdown({ sessionUser }: { sessionUser: DefaultSession['use
                alt="User profile icon"
                width={40}
                height={40}
-               className="object-cover rounded-full border border-[#2B2D4280]"
+               className="object-cover rounded-full border-[1.5px] border-gray"
             />
          </DropdownMenuTrigger>
          <DropdownMenuContent>

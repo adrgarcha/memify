@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 import { useEffect } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { toast } from 'sonner';
@@ -36,7 +37,7 @@ export default function Login() {
                   <span>Log in</span>
                   <ArrowRight size={16} className="ml-2" />
                </SubmitButton>
-               <p className="text-center text-sm text-[#2B2D42]">Or log in with</p>
+               <p className="text-center text-sm text-gray-dark">Or log in with</p>
                <div className="grid grid-cols-3 gap-x-2">
                   <SubmitButton name="google">
                      <Google size={20} color="white" />
@@ -49,6 +50,11 @@ export default function Login() {
                   </SubmitButton>
                </div>
             </form>
+            <Link href="/register">
+               <p className="mt-4 text-center text-xs text-gray opacity-90 hover:text-red hover:opacity-100 transition">
+                  {`Don't have an account yet? Register here`}
+               </p>
+            </Link>
          </section>
       </div>
    );
@@ -66,7 +72,7 @@ function SubmitButton({ name, children }: SubmitButtonProps) {
          type="submit"
          name={name}
          aria-disabled={pending}
-         className="bg-[#2B2D42] text-white font-semibold aria-disabled:cursor-not-allowed aria-disabled:opacity-50">
+         className="bg-gray-dark text-white font-semibold aria-disabled:cursor-not-allowed aria-disabled:opacity-50">
          {children}
       </Button>
    );

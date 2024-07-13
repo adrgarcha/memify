@@ -24,6 +24,11 @@
       --input: 0 0% 89.8%;
       --ring: 0 72.2% 50.6%;
       --radius: 0.5rem;
+      --custom-gray: #8d99ae;
+      --custom-gray-light: #edf2f4;
+      --custom-gray-dark: #2b2d42;
+      --custom-red: #ef233c;
+      --custom-red-dark: #d90429;
    }
 
    .dark {

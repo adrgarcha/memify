@@ -1,5 +1,6 @@
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
+import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';
@@ -20,8 +21,9 @@ export default function RootLayout({
       <html lang="en">
          <body className={`${poppins.className} w-full`}>
             <Navbar />
-            {children}
+            <main className="h-screen">{children}</main>
             <Footer />
+            <Toaster />
          </body>
       </html>
    );

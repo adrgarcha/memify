@@ -6,3 +6,124 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  tier          String?
+  accounts      Account[]
+  sessions      Session[]
+  memes         Meme[]
+  likes         Like[]
+  saves         Save[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @map("refreshToken")
+  access_token      String? @map("accessToken")
+  expires_at        Int?    @map("expiresAt")
+  token_type        String? @map("tokenType")
+  scope             String?
+  id_token          String? @map("idToken")
+  session_state     String? @map("sessionState")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+model Template {
+  id          String        @id @default(cuid())
+  mediaUrl    String        @unique
+  memes       Meme[]
+  TemplateTag TemplateTag[]
+}
+
+model Meme {
+  id         String    @id @default(cuid())
+  mediaUrl   String    @unique
+  sizeMB     Float
+  likes      Like[]
+  saves      Save[]
+  userId     String
+  User       User      @relation(fields: [userId], references: [id])
+  templateId String
+  Template   Template  @relation(fields: [templateId], references: [id])
+  MemeTag    MemeTag[]
+
+  createdAt DateTime @default(now())
+}
+
+model Like {
+  id     String @id @default(cuid())
+  userId String
+  User   User   @relation(fields: [userId], references: [id])
+  memeId String
+  Meme   Meme   @relation(fields: [memeId], references: [id])
+}
+
+model Save {
+  id     String @id @default(cuid())
+  userId String
+  User   User   @relation(fields: [userId], references: [id])
+  memeId String
+  Meme   Meme   @relation(fields: [memeId], references: [id])
+}
+
+model Tag {
+  id          String        @id @default(cuid())
+  name        String        @unique
+  color       String
+  MemeTag     MemeTag[]
+  TemplateTag TemplateTag[]
+}
+
+model MemeTag {
+  memeId String
+  Meme   Meme   @relation(fields: [memeId], references: [id])
+  tagId  String
+  Tag    Tag    @relation(fields: [tagId], references: [id])
+
+  @@id([memeId, tagId])
+}
+
+model TemplateTag {
+  templateId String
+  Template   Template @relation(fields: [templateId], references: [id])
+  tagId      String
+  Tag        Tag      @relation(fields: [tagId], references: [id])
+
+  @@id([templateId, tagId])
+}

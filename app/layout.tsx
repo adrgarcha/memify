@@ -1,5 +1,5 @@
 import Footer from '@/components/footer';
-import Navbar from '@/components/navbar';
+import Navbar from '@/components/navbar/navbar';
 import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';

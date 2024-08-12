@@ -14,12 +14,9 @@ model User {
   emailVerified DateTime?
   image         String?
   password      String?
-  tier          String?
+  tier          Tier      @default(FREE)
   accounts      Account[]
   sessions      Session[]
-  memes         Meme[]
-  likes         Like[]
-  saves         Save[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -64,66 +61,7 @@ model VerificationToken {
   @@id([identifier, token])
 }
 
-model Template {
-  id          String        @id @default(cuid())
-  mediaUrl    String        @unique
-  memes       Meme[]
-  TemplateTag TemplateTag[]
-}
-
-model Meme {
-  id         String    @id @default(cuid())
-  mediaUrl   String    @unique
-  sizeMB     Float
-  likes      Like[]
-  saves      Save[]
-  userId     String
-  User       User      @relation(fields: [userId], references: [id])
-  templateId String
-  Template   Template  @relation(fields: [templateId], references: [id])
-  MemeTag    MemeTag[]
-
-  createdAt DateTime @default(now())
-}
-
-model Like {
-  id     String @id @default(cuid())
-  userId String
-  User   User   @relation(fields: [userId], references: [id])
-  memeId String
-  Meme   Meme   @relation(fields: [memeId], references: [id])
-}
-
-model Save {
-  id     String @id @default(cuid())
-  userId String
-  User   User   @relation(fields: [userId], references: [id])
-  memeId String
-  Meme   Meme   @relation(fields: [memeId], references: [id])
-}
-
-model Tag {
-  id          String        @id @default(cuid())
-  name        String        @unique
-  color       String
-  MemeTag     MemeTag[]
-  TemplateTag TemplateTag[]
-}
-
-model MemeTag {
-  memeId String
-  Meme   Meme   @relation(fields: [memeId], references: [id])
-  tagId  String
-  Tag    Tag    @relation(fields: [tagId], references: [id])
-
-  @@id([memeId, tagId])
-}
-
-model TemplateTag {
-  templateId String
-  Template   Template @relation(fields: [templateId], references: [id])
-  tagId      String
-  Tag        Tag      @relation(fields: [tagId], references: [id])
-
-  @@id([templateId, tagId])
+enum Tier {
+  FREE
+  SHITPOSTER
 }

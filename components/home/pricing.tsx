@@ -1,7 +1,10 @@
 import { Tier } from '@prisma/client';
+import { loadStripe } from '@stripe/stripe-js';
 import { ArrowRight, Check, X } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '../ui/button';
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 export default function Pricing() {
    return (
@@ -67,14 +70,26 @@ function PricingPlan({ plan }: { plan: Tier }) {
             )}
          </ul>
          <div className="flex flex-col items-center mt-6">
-            <Link href={plan === 'FREE' ? '/templates' : ''}>
-               <Button className="flex items-center gap-x-2 font-bold group">
-                  {plan === 'FREE' ? 'Start for free' : 'Be a shitposter'}
-                  <ArrowRight size={18} strokeWidth={3} className="group-hover:translate-x-1 transition-transform" />
-               </Button>
-            </Link>
+            {plan === 'FREE' ? (
+               <Link href="/templates">
+                  <PricingPlanButton plan={plan} />
+               </Link>
+            ) : (
+               <form action="/api/checkout-session" method="POST">
+                  <PricingPlanButton plan={plan} />
+               </form>
+            )}
             <p className="text-xs text-gray font-semibold mt-1">{plan === 'FREE' ? 'Start your journey for free.' : 'Pay once. Access forever.'}</p>
          </div>
       </div>
+   );
+}
+
+function PricingPlanButton({ plan }: { plan: Tier }) {
+   return (
+      <Button role={plan === 'FREE' ? '' : 'link'} className="flex items-center gap-x-2 font-bold group">
+         {plan === 'FREE' ? 'Start for free' : 'Be a shitposter'}
+         <ArrowRight size={18} strokeWidth={3} className="group-hover:translate-x-1 transition-transform" />
+      </Button>
    );
 }

@@ -15,7 +15,7 @@ export default function MediaGrid({ items, scroll = true }: { items: R2Template[
    const columnItems = Array.from({ length: cols }, (_, i) => filteredItems.filter((_, index) => index % cols === i));
 
    const content = (
-      <div className={`grid grid-cols-${cols} gap-x-2 h-full`}>
+      <div className="grid grid-cols-5 gap-x-2 h-full">
          {columnItems.map((col, colIndex) => (
             <div key={colIndex} className="flex flex-col gap-y-2">
                {col.map(item => (

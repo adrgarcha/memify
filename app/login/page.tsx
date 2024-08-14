@@ -25,7 +25,7 @@ export default function Login() {
    }, [state]);
 
    return (
-      <div className="flex justify-center h-full">
+      <div className="flex justify-center h-screen">
          <section className="h-fit mt-56 rounded-md border p-8 shadow-xl">
             <h1 className="text-4xl font-bold text-center">Log in</h1>
             <form action={dispatch} className="flex flex-col gap-y-4 mt-4">

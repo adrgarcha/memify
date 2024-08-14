@@ -1,3 +1,3 @@
 export default function StartNow() {
-   return <section>StartNow</section>;
+   return <section className="border-t">StartNow</section>;
 }

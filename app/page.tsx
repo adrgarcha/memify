@@ -5,7 +5,7 @@ import StartNow from '@/components/home/start-now';
 
 export default function Home() {
    return (
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col">
          <Hero />
          <About />
          <Pricing />

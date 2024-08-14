@@ -13,11 +13,6 @@ export default function Footer() {
          label: 'Templates',
          href: '/templates',
       },
-      {
-         id: 'memes',
-         label: 'Memes',
-         href: '/memes',
-      },
    ];
 
    const supportLinks = [
@@ -30,7 +25,7 @@ export default function Footer() {
       {
          id: 'ko-fi',
          label: 'Ko-fi',
-         href: '',
+         href: '#',
          out: true,
       },
    ];
@@ -39,12 +34,12 @@ export default function Footer() {
       {
          id: 'terms',
          label: 'Terms of service',
-         href: '/terms',
+         href: '#',
       },
       {
          id: 'privacy',
          label: 'Privacy policy',
-         href: '/privacy',
+         href: '#',
       },
    ];
 
@@ -53,9 +48,9 @@ export default function Footer() {
          <div className="flex gap-x-40">
             <section className="flex flex-col gap-y-3">
                <MemifyLogo />
-               <div className="flex flex-col gap-y-1">
+               <div className="flex flex-col gap-y-1 text-black/70">
                   <p>Transform ideas into viral memes.</p>
-                  <p>Copyright © 2024 - All rights reserved</p>
+                  <p>{`Copyright © ${new Date().getFullYear()} - All rights reserved`}</p>
                </div>
             </section>
             <FooterLink label="LINKS" links={footerLinks} />

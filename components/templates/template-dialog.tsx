@@ -23,7 +23,7 @@ export default function TemplateDialog({ open, setOpen }: TemplateDialogProps) {
          <AlertDialogContent>
             <AlertDialogHeader>
                <AlertDialogTitle>Are you ready to upgrade?</AlertDialogTitle>
-               <AlertDialogDescription>It looks like you can't use this functionality yet.</AlertDialogDescription>
+               <AlertDialogDescription>It looks like you can&apos;t use this functionality yet.</AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
                <AlertDialogCancel onClick={() => setOpen(false)}>Cancel</AlertDialogCancel>

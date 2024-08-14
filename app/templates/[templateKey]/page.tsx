@@ -52,7 +52,7 @@ export default function TemplateKey({ params }: { params: { templateKey: string 
    };
 
    return (
-      <div className="flex justify-center items-center mt-64">
+      <div className="flex justify-center items-center h-screen">
          <div className="grid grid-cols-2 gap-x-8">
             <section>
                <div className="relative overflow-hidden" ref={divRef}>

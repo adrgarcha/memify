@@ -21,7 +21,7 @@ export default function RootLayout({
       <html lang="en">
          <body className={`${poppins.className} w-full`}>
             <Navbar />
-            <main className="h-screen">{children}</main>
+            <main>{children}</main>
             <Footer />
             <Toaster />
          </body>

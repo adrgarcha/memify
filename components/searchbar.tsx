@@ -8,7 +8,7 @@ import { ChangeEvent, useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import { Input } from './ui/input';
 
-export default function SearchBar({ className }: { className?: ClassValue[] }) {
+export default function SearchBar({ redirect, className }: { redirect?: boolean; className?: ClassValue[] }) {
    const router = useRouter();
    const pathname = usePathname();
    const searchParams = useSearchParams();
@@ -17,11 +17,17 @@ export default function SearchBar({ className }: { className?: ClassValue[] }) {
    const handleSearch = useDebouncedCallback((e: ChangeEvent<HTMLInputElement>) => {
       const searchValue = e.target.value;
       setSearch(searchValue);
+      if (redirect) return;
       router.push(`${pathname}?${createQueryString(searchParams, 'search', searchValue)}`);
-   }, 300);
+   }, 200);
+
+   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      if (redirect) router.push(`${pathname}templates?${createQueryString(searchParams, 'search', search)}`);
+   };
 
    return (
-      <section className={cn('relative flex items-center w-[700px] border-2 border-gray rounded-md', className)}>
+      <form onSubmit={handleSubmit} className={cn('relative flex items-center w-[700px] border-2 border-gray rounded-md bg-white', className)}>
          <Input
             type="text"
             placeholder="Search templates..."
@@ -29,7 +35,9 @@ export default function SearchBar({ className }: { className?: ClassValue[] }) {
             onChange={handleSearch}
             className="w-full mr-10 py-1 px-4 border-0 rounded-e-none"
          />
-         <Search className="absolute right-2 hover:cursor-pointer hover:animate-pulse" />
-      </section>
+         <button className="absolute right-2">
+            <Search className="hover:cursor-pointer hover:animate-pulse" />
+         </button>
+      </form>
    );
 }

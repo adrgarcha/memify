@@ -23,7 +23,7 @@ export default function UserProfileDropdown({ sessionUser }: { sessionUser: Defa
          id: 'profile',
          label: 'Profile',
          icon: <User size={16} />,
-         href: '/profile',
+         href: '/#',
       },
       {
          id: 'github',
